@@ -15,7 +15,9 @@ package org.assertj.core.api;
 import static java.lang.String.format;
 import static org.assertj.core.error.ShouldNotHaveThrown.shouldNotHaveThrown;
 
+import java.util.ArrayList;
 import java.util.IllegalFormatException;
+import java.util.List;
 import java.util.regex.Pattern;
 
 import org.assertj.core.error.BasicErrorMessageFactory;
@@ -252,6 +254,43 @@ public abstract class AbstractThrowableAssert<SELF extends AbstractThrowableAsse
   public AbstractThrowableAssert<?, ?> getRootCause() {
     throwables.assertHasRootCause(info, actual);
     return new ThrowableAssert<>(org.assertj.core.util.Throwables.getRootCause(actual)).withAssertionState(myself);
+  }
+
+  /**
+   * Returns a new list assertion of every cause from the current {@link Throwable} down to the root cause.
+   * The list is empty if there is no cause.
+   * <p>
+   * Examples:
+   * <pre><code class='java'> Throwable rootCause = new JdbcException("invalid query");
+   * Throwable cause =  new RuntimeException("some failure", rootCause);
+   * Throwable throwable = new Exception("boom!", cause);
+   *
+   * // typical use:
+   * assertThat(throwable).causesChain()
+   *                      .extracting(Throwable::getMessage)
+   *                      .anyMatch("some failure");</code></pre>
+   *
+   * @return a new assertion object
+   * @throws AssertionError if the actual {@code Throwable} is {@code null}.
+   *
+   * @since 3.16.0
+   */
+  @SuppressWarnings({ "unchecked", "rawtypes" })
+  public AbstractListAssert<?, List<Throwable>, Throwable, ? extends AbstractThrowableAssert<?, Throwable>> causesChain() {
+    isNotNull();
+    return (AbstractListAssert) AssertionsForInterfaceTypes.assertThat(getCausesChain(actual));
+  }
+
+  /**
+   * Get the causes chain of a {@link Throwable}.
+   */
+  private static List<Throwable> getCausesChain(Throwable throwable) {
+    List<Throwable> throwables = new ArrayList<>();
+    while (throwable != null) {
+      throwables.add(throwable);
+      throwable = throwable.getCause();
+    }
+    return throwables;
   }
 
   /**

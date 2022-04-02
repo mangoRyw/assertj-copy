@@ -21,8 +21,10 @@ import static org.assertj.core.util.Lists.newArrayList;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.function.Function;
+import java.util.stream.Stream;
 
 /**
  * Utility methods related to <code>{@link Throwable}</code>s.
