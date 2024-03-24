@@ -557,7 +557,7 @@ class InstanceOfAssertFactoriesTest {
     // GIVEN
     Object value = new Integer[] { 0, 1 };
     // WHEN
-    ObjectArrayAssert<Integer> result = assertThat(value).asInstanceOf(array(Integer[].class));
+    ObjectArrayAssert<Integer> result = assertThat(value).asInstanceOf(array(Integer.class));
     // THEN
     result.containsExactly(0, 1);
   }
@@ -577,7 +577,7 @@ class InstanceOfAssertFactoriesTest {
     // GIVEN
     Object value = new Integer[][] { { 0, 1 }, { 2, 3 } };
     // WHEN
-    Object2DArrayAssert<Integer> result = assertThat(value).asInstanceOf(array2D(Integer[][].class));
+    Object2DArrayAssert<Integer> result = assertThat(value).asInstanceOf(array2D(Integer.class));
     // THEN
     result.hasDimensions(2, 2);
   }
