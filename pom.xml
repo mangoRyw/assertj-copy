@@ -4,11 +4,11 @@
 
   <groupId>org.assertj.copy</groupId>
   <artifactId>assertj-build</artifactId>
-  <version>3.27.2-SNAPSHOT-COPY</version>
+  <version>3.27.3-SNAPSHOT-COPY</version>
   <packaging>pom</packaging>
 
   <name>AssertJ Build</name>
-  <description>AssertJ Build</description>
+  <description>AssertJ Build - Modified version of AssertJ - Fluent assertions for Java</description>
   <url>${project.organization.url}</url>
   <inceptionYear>2012</inceptionYear>
   <organization>
